@@ -1,5 +1,5 @@
 ---
-title:  "搭建Nginxi高可用集群(keepalived+双机热备)"
+title:  "搭建Nginx高可用集群(keepalived+双机热备)"
 date:   2022-05-25 20:00:01
 categories: [运维]
 tags: [Nginx]
