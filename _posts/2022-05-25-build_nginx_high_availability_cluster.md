@@ -12,7 +12,7 @@ tags: [Nginx]
 反向代理是指以代理服务器来接收浏览器的请求，然后再将请求转发到内网的服务器，然后再将从服务器上得到的结果返回给客户端。负载均衡就是要解决一个web服务器压力过大的问题，此时可以通过多个web服务器根据不同的算法将并发过来的请求分配到多个服务器上，从而减轻单个服务器压力过大的问题。
 
 这样的话，当一台web服务器挂掉了，还有其他的服务器可以处理客户端的请求，也解决了单点故障问题，这是对web服务器的高可用。  
-​​​​​​![Alt](../blog_images/build_nginx_high_availability_cluster/2c2d1a41a6d649a99656298e5b090606.png)  
+​​​​​​![Alt](../blog_images/build_nginx_high_availability_cluster/2c2d1a41a6d649a99656298e5b090606.jpg)  
 但是，上述架构仍然存在单点故障问题吗，**如果这台Nginx挂了，那么所有对外提供的接口都将导致无法访问，所以我们也需要给Nginx配置高可用机制**。   
 
 可以使用keepalived来实现Nginx的高可用。  
@@ -21,7 +21,7 @@ tags: [Nginx]
 双机热备方案是目前使用最为普遍的一种高可用方案，双机热备就是指一台服务器整在提供服务，另外一台作为备用状态，当一台服务器挂掉之后另外一台就会代替他继续提供服务。
 
 **双机热备主要解决的是Nginx的单点故障问题**。  
-​​​​​​![Alt](../blog_images/build_nginx_high_availability_cluster/42acd367d5424f4e814453325911c5a2.png)   
+​​​​​​![Alt](../blog_images/build_nginx_high_availability_cluster/42acd367d5424f4e814453325911c5a2.jpg)   
 
 ## 三、LVS负载均衡
 再来了解一下LVS，LVS（Linux Vritual Server）即Linux虚拟服务器，他是一个开源的软件，可以实现传输层四层负载均衡，通过 LVS 达到的负载均衡技术可以实现一个高性能高可用的 Linux 服务器集群。
@@ -29,10 +29,10 @@ tags: [Nginx]
 大概流程就是：当客户端发出请求时，会先连接到互联网的DNS服务器，然后解析到LVS负载均衡调度器上，**LVS可以帮我们虚拟出来一个IP地址（外网IP）**，此时客户端用户就会去连接这个虚拟出来的IP，当用户连接到虚拟IP之后LVS会根据指定的调度算法确定具体要连接到哪一台Nginx服务器上。客户端连接到虚拟IP的过程对用户是透明的，而LVS具体连接到哪一台Nginx服务器对用户来说是不知道的。
 
 LVS负载均衡调度器仅仅只是一个调度器，并不是真正的服务。  
-![Alt](../blog_images/build_nginx_high_availability_cluster/a97580b8c3ad44be99962f6f4909b2a5.png)  
+![Alt](../blog_images/build_nginx_high_availability_cluster/a97580b8c3ad44be99962f6f4909b2a5.jpg)  
 
 ## 四、keepalived健康监测  
-![Alt](../blog_images/build_nginx_high_availability_cluster/9c63d411145245018cfbeaf8c961cc32.png)
+![Alt](../blog_images/build_nginx_high_availability_cluster/9c63d411145245018cfbeaf8c961cc32.jpg)   
 来了解了解为什么要引入keepalived
 
 LVS可以实现负载均衡，但是不能够进行健康检查。意思就是，假如一台Nginx服务器挂掉了，LVS仍然会把客户端的请求发送到这个挂掉了Nginx上（因为LVS并不知道此Nginx挂了），这样就会导致请求无效无法处理客户端的请求。
@@ -45,7 +45,7 @@ keepalived是基于VRRP协议实现的保证集群高可用的一个服务软件
 **VRRP虚拟出来的是路由**。  
 
 ## 五、开始搭建Nginx高可用集群  
-![Alt](../blog_images/build_nginx_high_availability_cluster/a1bab583148f40e588b9c91db17c1d6d.png)
+![Alt](../blog_images/build_nginx_high_availability_cluster/a1bab583148f40e588b9c91db17c1d6d.jpg)
 1、首先准备两台Nginx服务器，一个作为主服务器MASTER，一个作为备服务器BACKUP，再利用LVS虚拟出来一个IP地址。  
 ``` shell
 #搭建keepalived环境
