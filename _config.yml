@@ -1,6 +1,6 @@
 # Site settings
-title: CacheBreakdown
-description: "A secret base to record daily work, study and life"
+title: XinYu
+description: "书生意气，挥斥方遒"
 url: "https://CacheBreakdown.github.io"
 baseurl: ""
 # google_analytics: 'UA-XXXXXX-X'
@@ -10,10 +10,10 @@ baseurl: ""
 author:
   name: "CacheBreakdown"
   email: x_y322@163.com
-  twitter_username: xinyu95060245
-  facebook_username:
+  # twitter_username: xinyu95060245
+  # facebook_username:
   github_username: CacheBreakdown
-  linkedin_username: CacheBreakdown
+  # linkedin_username: CacheBreakdown
 
 defaults:
   - scope:
