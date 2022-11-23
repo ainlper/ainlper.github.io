@@ -8,11 +8,11 @@ baseurl: ""
 # disable_landing_page: true
 
 author:
-  name: "CacheBreakdown"
+  name: "XinYu"
   email: x_y322@163.com
   # twitter_username: xinyu95060245
   # facebook_username:
-  github_username: CacheBreakdown
+  # github_username: CacheBreakdown
   # linkedin_username: CacheBreakdown
 
 defaults:
